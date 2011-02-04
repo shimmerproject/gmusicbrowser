@@ -29,6 +29,7 @@ VBMain = HBMenubar 1HBToolbar 4VBSliderbar _HPSidebarCenterContext HBStatusbar
                 SeparatorMenuItem11 \
                 MenuItem14(command=OpenPref,label=_"Options ...")
             SMView2 = (label=_"View") \
+                MenuItem25(togglewidget=HPSidebarCenterContext|HBStatusbar,resize='v',label=_"Compact") \
                 SeparatorMenuItem20 \
                 SMBrowserViews20 \
                 SMSearchBox21 \
@@ -56,9 +57,7 @@ VBMain = HBMenubar 1HBToolbar 4VBSliderbar _HPSidebarCenterContext HBStatusbar
                 MenuItem32(command=NextSong,label=_"Next") \
                 SeparatorMenuItem32 \
                 MenuItem33(command=IncVolume,label=_"Increase volume") \
-                MenuItem34(command=DecVolume,label=_"Decrease volume") \
-                SeparatorMenuItem33 \
-                MenuItem35(command=ToggleRandom,label=_"Random") # funktioniert nicht wirklich gut
+                MenuItem34(command=DecVolume,label=_"Decrease volume")
 
             SMHelp4 = (label=_"Help")
 
