@@ -15,8 +15,8 @@ VBMain = HBMenubar HBToolbar VBSliderbar _HPSidebarCenterContext HBStatusbar
     HBMenubar = _MBEdit
         MBEdit = SMMusic0 SMEdit1 SMView20 SMControl3 SMHelp4
             SMMusic0 = (label=_"Music") \
-                # MenuItem00(command="ChooseAddPath(0,1)",label=_"Add folder ...") \
-                # SeparatorMenuItem01 \
+                MenuItem00(command="RunPerlCode(::ChooseAddPath(0,1))",label=_"Add folder ...") \
+                SeparatorMenuItem01 \
                 MenuItem01(command="OpenSongProp",label=_"Properties") \
                 SeparatorMenuItem02 \
                 MenuItem02(command=Quit,label=_"Quit")
@@ -119,7 +119,7 @@ VBMain = HBMenubar HBToolbar VBSliderbar
     HBMenubar = _MBEdit
         MBEdit = SMMusic0 SMEdit1 SMView20 SMControl3 SMHelp4
             SMMusic0 = (label=_"Music") \
-                # MenuItem00(command="ChooseAddPath(0,1)",label=_"Add folder ...") \
+                MenuItem00(command="RunPerlCode(::ChooseAddPath(0,1))",label=_"Add folder ...") \
                 # SeparatorMenuItem01 \
                 MenuItem01(command="OpenSongProp",label=_"Properties") \
                 SeparatorMenuItem02 \
