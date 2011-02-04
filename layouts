@@ -1,6 +1,6 @@
 [Rhythmbox]
 Author = aboettger
-Type = G
+Type = G+
 Title = %a - %t
 Default = Window(size=80%x80%) HPSidebarAndCenter(size=200)
 DefaultFocus =
@@ -10,10 +10,10 @@ KeyBindings = a-Return OpenSongProp c-space PlayPause a-Left PrevSong a-Right Ne
 
 VolumeScroll = HBVolume
 
-VBMain = HBMenubar 1HBToolbar 4VBSliderbar _HPSidebarCenterContext HBStatusbar
+VBMain = HBMenubar HBToolbar VBSliderbar _HPSidebarCenterContext HBStatusbar
 
     HBMenubar = _MBEdit
-        MBEdit = SMMusic0 SMEdit1 SMView2 SMControl3 SMHelp4
+        MBEdit = SMMusic0 SMEdit1 SMView20 SMControl3 SMHelp4
             SMMusic0 = (label=_"Music") \
                 # MenuItem00(command="ChooseAddPath(0,1)",label=_"Add folder ...") \
                 # SeparatorMenuItem01 \
@@ -28,8 +28,10 @@ VBMain = HBMenubar 1HBToolbar 4VBSliderbar _HPSidebarCenterContext HBStatusbar
                 MenuItem11(command=DeleteSelected,label=_"Delete") \
                 SeparatorMenuItem11 \
                 MenuItem14(command=OpenPref,label=_"Options ...")
-            SMView2 = (label=_"View") \
-                MenuItem25(togglewidget=HPSidebarCenterContext|HBStatusbar,resize='v',label=_"Compact") \
+
+            # SMView menu for common mode
+            SMView20 = (label=_"View") \
+                LayoutItem \
                 SeparatorMenuItem20 \
                 SMBrowserViews20 \
                 SMSearchBox21 \
@@ -38,9 +40,7 @@ VBMain = HBMenubar 1HBToolbar 4VBSliderbar _HPSidebarCenterContext HBStatusbar
                 MenuItem21(togglewidget=QueueList,label=_"Queue in Sidebar") \
                 MenuItem22(togglewidget=HBFilters,label=_"Search") \
                 MenuItem23(togglewidget=HBStatusbar,label=_"Statusbar") \
-                MenuItem24(togglewidget=HBToolbar,label=_"Toolbar") \
-                SeparatorMenuItem22 \
-                SeparatorMenuItem23
+                MenuItem24(togglewidget=HBToolbar,label=_"Toolbar")
 
                 SMBrowserViews20 = (label=_"Browser views") \
                     MenuItem201(togglewidget=FilterPane2,label=_"Show genre") \
@@ -111,6 +111,45 @@ VBMain = HBMenubar 1HBToolbar 4VBSliderbar _HPSidebarCenterContext HBStatusbar
 
     HBStatusbar = Total(mode=filter) -Progress(maxheight=1)
 
+[Rhythmbox Compact] based on Rhythmbox
+Default = Window(size=600x126)
+
+VBMain = HBMenubar HBToolbar VBSliderbar
+
+    HBMenubar = _MBEdit
+        MBEdit = SMMusic0 SMEdit1 SMView20 SMControl3 SMHelp4
+            SMMusic0 = (label=_"Music") \
+                # MenuItem00(command="ChooseAddPath(0,1)",label=_"Add folder ...") \
+                # SeparatorMenuItem01 \
+                MenuItem01(command="OpenSongProp",label=_"Properties") \
+                SeparatorMenuItem02 \
+                MenuItem02(command=Quit,label=_"Quit")
+            SMEdit1 = (label=_"Edit") \
+                MenuItem14(command=OpenPref,label=_"Options ...")
+
+            # SMView menu for compact mode
+            SMView20 = (label=_"View") \
+                LayoutItem \
+                SeparatorMenuItem20 \
+                MenuItem24(togglewidget=HBToolbar,label=_"Toolbar")
+
+            SMControl3 = (label=_"Control") \
+                MenuItem30(command=PlayPause,label=_"Play") \
+                SeparatorMenuItem31 \
+                MenuItem31(command=PrevSong,label=_"Previous") \
+                MenuItem32(command=NextSong,label=_"Next") \
+                SeparatorMenuItem32 \
+                MenuItem33(command=IncVolume,label=_"Increase volume") \
+                MenuItem34(command=DecVolume,label=_"Decrease volume")
+
+    HBToolbar = Play Prev Next \
+        3VSeparator1 \
+        Sort(button=1,relief=none,minwidth=35) \
+        -HBVolume
+
+        HBVolume = VolumeIcon(size=menu,button=1)
+
+
 {Column RhythmboxQueue}
 menutitle = _"Rhythmbox 2nd queue column"
 title = _"Queue"
@@ -118,7 +157,6 @@ hreq=text:h
 width=200
 sort= title:i
 text : text(markup=pesc($title).'\n<small>by <i>'.pesc($artist).'</i>\non <i>'.pesc($album).'</i></small>',pad=2)
-
 
 [shimmer]
 Type=G
