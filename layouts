@@ -41,7 +41,7 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
                 MenuItem33(command=IncVolume,label=_"Increase volume") \
                 MenuItem34(command=DecVolume,label=_"Decrease volume")
 
-            SMHelp4 = (label=_"Help")
+            SMHelp4 = (label=_"Help") MenuItem35(command="RunPerlCode(::AboutDialog)",label=_"About",stock="gtk-about")
 
     HPSidebarCenter = VBSidebar VBCenter
 
@@ -49,10 +49,11 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
 
             NBSidebar = (tabpos=left90) \
                 NBSidebar1 \
-                FilterPane10(tabtitle=_"Playlists",nb=0,hidebb=1,tabpos=left90,page=savedtree,pages=savedtree)
+                FilterPane10(tabtitle=_"Playlists",nb=0,hidebb=1,tabpos=left90,page=savedtree,pages=savedtree) \
+		FilterPane11(tabtitle=_"Files",nb=0,hidebb=1,tabpos=left90,page=folder,pages=folder)
 
 
-                NBSidebar1 = (tabtitle=_"Library") \
+                NBSidebar1 = (tabtitle=_"Collection") \
                     FilterPane1(tabtitle=_"Artist",\
                         nb=0,\
                         hidebb=1,\
@@ -136,13 +137,16 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
         VBCenter = 10HBPlayer _SongList 5HBSearchAndToolbar HBControls
 
             HBPlayer = (maxheight=100,minheight=100) Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100) \
-                5VBSongInfo
+                5VBSongInfo \
+		-VBVolume
 
                 VBSongInfo =  \
                     _Title(expand_max=300,minsize=0,markup="<big><big><b>%t</b></big></big>",click1="",yalign=0.5) \
-                    _Artist(expand_max=200,yalign=1,minsize=0,markup=" by %a",click1="") \
-                    _Album(minsize=1,expand_max=200,yalign=1,minsize=1,markup=" on %l",click1="")\
+                    _Artist(expand_max=200,yalign=1,minsize=0,markup="by %a",click1="") \
+                    _Album(minsize=1,expand_max=200,yalign=1,minsize=1,markup="from %l",click1="")\
                     _100Filler2
+		VBVolume = 100Filler3 _HBVolume
+		HBVolume = VolumeIcon(size=button,button=1) _VolSlider(horizontal=1,minsize=100)
 
 
             HBSearchAndToolbar = _HBToolbar \
@@ -156,7 +160,7 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
                 Stop(size=button,relief=normal) \
                 Next(size=button,relief=normal) \
                 _VBTimeBar \
-                3Filler2
+                3Filler4
 
                 VBTimeBar = 2Filler0 TimeBar 1Filler1
 
