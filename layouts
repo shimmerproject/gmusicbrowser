@@ -1,3 +1,132 @@
+[Exaile]
+Author = aboettger
+Type = G+
+Title = %t by %a
+Default = Window(size=80%x80%)
+
+# Window = hidden=FilterPane2|FilterPane3|FilterPane4|FilterPane5|FilterPane6|FilterPane7
+
+VBMain = HBMenubar _HPSidebarCenter HBStatusbar
+
+    HBStatusbar = 10-Total(mode=filter)
+
+    HPSidebarCenter = VBSidebar VBCenter
+
+        VBSidebar = _NBSidebar VProgress
+
+            NBSidebar = (tabpos=left90) \
+                NBSidebar1 \
+                FilterPane10(tabtitle=_"Playlists",nb=0,hidebb=1,tabpos=left90,page=savedtree,pages=savedtree)
+
+
+                NBSidebar1 = (tabtitle=_"Library") \
+                    FilterPane1(tabtitle=_"Artist",\
+                        nb=0,\
+                        hidebb=1,\
+                        pages=artist,\
+                        page=artist,\
+                        page_artist/depth=1,\
+                        page_artist/lmarkup="0|<b>%a</b>%Y <small>%s <small>%l</small></small>",\
+                        page_artist/lpicsize='0|32',\
+                        page_artist/noall= 0,\
+                        page_artist/sort=default|default,\
+                        page_artist/type=artist|album\
+                    ) \
+                    FilterPane2(tabtitle=_"Album",\
+                        nb=0,\
+                        hidebb=1,\
+                        page=album,\
+                        pages=album,\
+                        page_album/noall=0\
+                    ) \
+                    FilterPane3(tabtitle=_"Genre - Artist",\
+                        nb=0,\
+                        hidebb=1,\
+                        page=genre,\
+                        pages=genre,\
+                        page_genre/depth=2,\
+                        page_genre/lmarkup="0|0|<b>%a</b>%Y <small>%s <small>%l</small></small>",\
+                        page_genre/lpicsize='0|32|32',\
+                        page_genre/noall=0,\
+                        page_genre/sort=default|default|default,\
+                        page_genre/type=genre|artist|album\
+                    ) \
+                    FilterPane4(tabtitle=_"Genre - Album",\
+                        nb=0,\
+                        hidebb=1,\
+                        page=genre,\
+                        pages=genre,\
+                        page_genre/depth=2,\
+                        page_genre/lmarkup="0|0|<b>%a</b>%Y <small>%s <small>%l</small></small>",\
+                        page_genre/lpicsize='0|32|32',\
+                        page_genre/noall=0,\
+                        page_genre/sort=default|default|default,\
+                        page_genre/type=genre|album|artist\
+                    ) \
+                    FilterPane5(tabtitle=_"Year - Artist",\
+                        nb=0,\
+                        hidebb=1,\
+                        page=year,\
+                        pages=year,\
+                        page_year/depth=2,\
+                        page_year/lmarkup="0|0|<b>%a</b>%Y <small>%s <small>%l</small></small>",\
+                        page_year/lpicsize='0|32|32',\
+                        page_year/noall=0,\
+                        page_year/sort=default|default|default,\
+                        page_year/type=year|artist|album\
+                    ) \
+                    FilterPane6(tabtitle=_"Year - Album",\
+                        nb=0,\
+                        hidebb=1,\
+                        page=year,\
+                        pages=year,\
+                        page_year/depth=2,\
+                        page_year/lmarkup="0|0|<b>%a</b>%Y <small>%s <small>%l</small></small>",\
+                        page_year/lpicsize='0|32|32',\
+                        page_year/noall=0,\
+                        page_year/sort=default|default|default,\
+                        page_year/type=year|album|artist\
+                    ) \
+                    FilterPane7(tabtitle=_"Artist (Jahr - Album)",\
+                        nb=0,\
+                        hidebb=1,\
+                        pages=artist,\
+                        page=artist,\
+                        page_artist/depth=1,\
+                        page_artist/lmarkup="0|<b>%y %a</b>",\
+                        page_artist/lpicsize='0|32',\
+                        page_artist/noall= 0,\
+                        page_artist/sort=default|default,\
+                        page_artist/type=artist|album\
+                    )
+
+        VBCenter = 10HBPlayer _SongList 5HBSearchAndToolbar HBControls
+
+            HBPlayer = (maxheight=100,minheight=100) Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100) \
+                5VBSongInfo
+
+                VBSongInfo =  \
+                    _Title(expand_max=300,minsize=0,markup="<big><big><b>%t</b></big></big>",click1="",yalign=0.5) \
+                    _Artist(expand_max=200,yalign=1,minsize=0,markup=" by %a",click1="") \
+                    _Album(minsize=1,expand_max=200,yalign=1,minsize=1,markup=" on %l",click1="")\
+                    _100Filler2
+
+
+            HBSearchAndToolbar = _HBToolbar \
+                Text1(text=_"Search:") \
+                10_SimpleSearch
+
+                HBToolbar = Sort(button=1,relief=none,minwidth=35)
+
+            HBControls = Prev(size=button,relief=normal) \
+                Play(size=button,relief=normal) \
+                Stop(size=button,relief=normal) \
+                Next(size=button,relief=normal) \
+                _VBTimeBar \
+                3Filler2
+
+                VBTimeBar = 2Filler0 TimeBar 1Filler1
+
 [Rhythmbox]
 Author = aboettger
 Type = G+
