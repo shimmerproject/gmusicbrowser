@@ -10,6 +10,39 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
 
     HBStatusbar = 10-Total(mode=filter)
 
+    HBMenubar = _MBEdit
+        MBEdit = SMMusic0 SMEdit1 SMView20 SMControl3 SMHelp4
+            SMMusic0 = (label=_"Music") \
+                MenuItem00(command="RunPerlCode(::ChooseAddPath(0,1))",label=_"Add folder ...") \
+                SeparatorMenuItem01 \
+                MenuItem01(command="OpenSongProp",label=_"Properties") \
+                SeparatorMenuItem02 \
+                MenuItem02(command=Quit,label=_"Quit")
+            SMEdit1 = (label=_"Edit") \
+                MenuItem10(command=EnqueueSelected,label=_"Add to queue") \
+                # MenuItem11(command=,label=_"Add to playlist") \ \
+                SeparatorMenuItem10 \
+                # MenuItem10(command=OpenPref,label=_"Remove") \
+                MenuItem11(command=DeleteSelected,label=_"Delete") \
+                SeparatorMenuItem11 \
+                MenuItem14(command=OpenPref,label=_"Options ...")
+
+            # SMView menu for common mode
+            SMView20 = (label=_"View") \
+                LayoutItem \
+                MenuItem24(togglewidget=HBSearchAndToolbar,label=_"Toolbar")
+
+            SMControl3 = (label=_"Control") \
+                MenuItem30(command=PlayPause,label=_"Play") \
+                SeparatorMenuItem31 \
+                MenuItem31(command=PrevSong,label=_"Previous") \
+                MenuItem32(command=NextSong,label=_"Next") \
+                SeparatorMenuItem32 \
+                MenuItem33(command=IncVolume,label=_"Increase volume") \
+                MenuItem34(command=DecVolume,label=_"Decrease volume")
+
+            SMHelp4 = (label=_"Help")
+
     HPSidebarCenter = VBSidebar VBCenter
 
         VBSidebar = _NBSidebar VProgress
