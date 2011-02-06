@@ -4,6 +4,8 @@ Type = G+
 Title = %t by %a
 Default = Window(size=80%x80%)
 
+KeyBindings = c-J GoToCurrentSong
+
 # Window = hidden=FilterPane2|FilterPane3|FilterPane4|FilterPane5|FilterPane6|FilterPane7
 
 VBMain = HBMenubar _HPSidebarCenter HBStatusbar
@@ -12,10 +14,10 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
 
     HBMenubar = _MBEdit
         MBEdit = SMMusic0 SMEdit1 SMView20 SMControl3 SMHelp4
-            SMMusic0 = (label=_"Music") \
+            SMMusic0 = (label=_"File") \
                 MenuItem00(command="RunPerlCode(::ChooseAddPath(0,1))",label=_"Add folder ...") \
                 SeparatorMenuItem01 \
-                MenuItem01(command="OpenSongProp",label=_"Properties") \
+                MenuItem01(command="OpenSongProp",label=_"Song Properties") \
                 SeparatorMenuItem02 \
                 MenuItem02(command=Quit,label=_"Quit")
             SMEdit1 = (label=_"Edit") \
@@ -29,19 +31,19 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
 
             # SMView menu for common mode
             SMView20 = (label=_"View") \
+                MenuItem25(command=GoToCurrentSong,label=_"Go to playing song") \
+                SeparatorMenuItem21 \
                 LayoutItem \
                 MenuItem24(togglewidget=HBSearchAndToolbar,label=_"Toolbar")
 
-            SMControl3 = (label=_"Control") \
-                MenuItem30(command=PlayPause,label=_"Play") \
-                SeparatorMenuItem31 \
-                MenuItem31(command=PrevSong,label=_"Previous") \
-                MenuItem32(command=NextSong,label=_"Next") \
-                SeparatorMenuItem32 \
-                MenuItem33(command=IncVolume,label=_"Increase volume") \
-                MenuItem34(command=DecVolume,label=_"Decrease volume")
 
-            SMHelp4 = (label=_"Help") MenuItem35(command="RunPerlCode(::AboutDialog)",label=_"About",stock="gtk-about",icon="gtk-about")
+            SMControl3 = (label=_"Tools") \
+                MenuItem32(command="RunPerlCode(::IdleScan)",label=_"Reread library") \
+                MenuItem33(command="OpenSongProp",label=_"Properties") \
+                MenuItem34(click1=OpenCustom(Equalizer),label=_"Equalizer")
+
+            SMHelp4 = (label=_"Help") \
+                MenuItem35(command="RunPerlCode(::AboutDialog)",label=_"About",stock="gtk-about",icon="gtk-about")
 
     HPSidebarCenter = VBSidebar VBCenter
 
@@ -133,7 +135,9 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
                         page_artist/type=artist|album\
                     )
 
-        VBCenter = 10HBPlayer _SongList 5HBSearchAndToolbar HBControls
+        VBCenter = 10HBPlayer _HBSongList 5HBSearchAndToolbar HBControls
+
+            HBSongList = _SongList(mode=playlist) 5Filler6
 
             HBPlayer = (maxheight=100,minheight=100) Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100) \
                 5VBSongInfo \
@@ -156,7 +160,8 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
                 Text1(text=_"Search:") \
                 10_SimpleSearch
 
-                HBToolbar = Sort(button=1,relief=none,minwidth=35)
+                HBToolbar = Sort(button=1,relief=none,minwidth=28) \
+                    ResetFilter(button=1,relief=none,minwidth=28)
 
             HBControls = Prev(size=button,relief=normal) \
                 Play(size=button,relief=normal) \
@@ -186,7 +191,7 @@ VBMain = HBMenubar HBToolbar VBSliderbar _HPSidebarCenterContext HBStatusbar
             SMMusic0 = (label=_"Music") \
                 MenuItem00(command="RunPerlCode(::ChooseAddPath(0,1))",label=_"Add folder ...") \
                 SeparatorMenuItem01 \
-                MenuItem01(command="OpenSongProp",label=_"Properties") \
+                MenuItem01(command="OpenSongProp",label=_"Song Properties") \
                 SeparatorMenuItem02 \
                 MenuItem02(command=Quit,label=_"Quit")
             SMEdit1 = (label=_"Edit") \
@@ -980,7 +985,7 @@ VBox = Volume(xalign=.5) _VolumeSlider(vertical=1)
 
 [Equalizer]
 Default		= Window(size=300x160)
-VBmain		= _Equalizer
+VBmain		= 10_Equalizer
 Title		= Equalizer
 
 [Progress]
