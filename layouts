@@ -148,12 +148,16 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
 
             HBSongLists = _NBSongLists 3Filler7
 
-                NBSongLists = SongList(tabtitle=_"Playlist 1",mode=playlist,tabicon="gmb-list",playandqueue,cols="track title album artist length")
+                NBSongLists = SongList(tabtitle=_"Playlist 1",mode=playlist,tabicon="gmb-list",cols="playandqueue track title album artist length")
 
-            HBPlayer = (maxheight=100,minheight=100) Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100) \
+            HBPlayer = (maxheight=100,minheight=100) \
+                HBCover \
                 5VBSongInfo \
                 _VBVolume \
                 5Filler5
+
+                HBCover = (maxheight=100,minheight=100,minwidth=100,maxwidth=100) \
+                    Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100)
 
                 VBVolume = 100Filler3 HBVolume
                     HBVolume = \
@@ -161,8 +165,8 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
                         -VolumeIcon(click1=TogMute,size=button,button=1)
 
                 VBSongInfo =  \
-                    _Title(expand_max=300,minsize=0,markup="<big><big><b>%t</b></big></big>",click1="",yalign=0.5) \
-                    _Artist(expand_max=200,yalign=1,minsize=0,markup="by %a",click1="") \
+                    _Title(minsize=0,markup="<big><big><b>%t</b></big></big>",click1="",yalign=0.5) \
+                    _Artist(yalign=1,minsize=0,markup="by %a",click1="") \
                     _Album(minsize=1,expand_max=200,yalign=1,minsize=1,markup="from %l",click1="")\
                     100Filler2
 
