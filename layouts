@@ -1,3 +1,45 @@
+[Audacious]
+Author = shimmerproject.org
+Type = G+
+Title = Nr. %t (Länge)
+Default = Window(size=480x200)
+
+VolumeScroll = HBVolume
+
+VBMain = HBMenubar HBToolbar _HBPlaylist HBSonginfo 3HBStatusbar
+
+    HBSonginfo = 10HBCover \
+        VBSongInfo \
+        2-VBVisuals
+
+            VBVisuals = 2Filler2 _Visuals(minwidth=200,maxwidth=200) 2Filler3
+
+            VBSongInfo = 3Filler4 \
+                Title(minsize=0,markup="<big><big><big><big>%t</big></big></big></big>",click1="") \
+                Artist(minsize=0,markup="%a",click1="") \
+                Album(minsize=1,markup="%l",click1="")
+
+        HBCover = (maxheight=80,minheight=80,minwidth=80,maxwidth=80) \
+            Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100)
+
+    HBPlaylist = _SongList(mode=playlist,cols="track title length")
+
+    HBStatusbar = -Text(text="TODO: x:xx/x:xx")
+
+    HBPlaytime = PlayingTime(markup="%s",initsize="XX:XX",xalign=0) Length(markup="$length",initsize="XX:XX",xalign=1)
+
+    HBToolbar = HBControls _HBTimeBar 5Filler1 HBPlaytime -HBVolume
+
+        HBVolume = VolumeIcon(button=1)
+
+        HBTimeBar = _TimeSlider(direct_mode=0)
+
+        HBControls = Play(size=button,relief=none)\
+                Stop(size=button,relief=none) \
+                Prev(size=button,relief=none) \
+                Next(size=button,relief=none)
+
+
 [Exaile]
 Author = shimmerproject.org
 Type = G+
