@@ -17,23 +17,18 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
     HBMenubar = _MBEdit
         MBEdit = SMMusic0 SMEdit1 SMView20 SMControl3 SMHelp4
             SMMusic0 = (label=_"File") \
-                MenuItem00(command="RunPerlCode(::ChooseAddPath(0,1))",label=_"Add folder ...") \
+                MenuItem00(command="RunPerlCode(::ChooseAddPath(0,1))",label=_"Add folder ...",icon="gtk-add") \
                 SeparatorMenuItem01 \
-                MenuItem01(command="OpenSongProp",label=_"Song Properties") \
-                SeparatorMenuItem02 \
-                MenuItem02(command=Quit,label=_"Quit")
+                MenuItem02(command=Quit,label=_"Quit",icon="gtk-quit")
             SMEdit1 = (label=_"Edit") \
-                MenuItem10(command=EnqueueSelected,label=_"Queue") \
+                MenuItem10(command=EnqueueSelected,label=_"Queue",icon="gmb-queue") \
                 # MenuItem11(command=,label=_"Add to playlist") \ \
                 SeparatorMenuItem10 \
-                # MenuItem10(command=OpenPref,label=_"Remove") \
-                MenuItem11(command=DeleteSelected,label=_"Delete") \
-                SeparatorMenuItem11 \
-                MenuItem14(command=OpenPref,label=_"Preferences")
+                MenuItem14(command=OpenPref,label=_"Preferences",icon="gtk-preferences")
 
             # SMView menu for common mode
             SMView20 = (label=_"View") \
-                MenuItem25(command=GoToCurrentSong,label=_"Go to Playing Track") \
+                MenuItem25(command=GoToCurrentSong,label=_"Go to Playing Track",icon="go-jump") \
                 SeparatorMenuItem21 \
                 LayoutItem \
                 MenuItem24(togglewidget=HBSearchAndToolbar,label=_"Playlist Utilities Bar")
