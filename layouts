@@ -23,29 +23,29 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
                 SeparatorMenuItem02 \
                 MenuItem02(command=Quit,label=_"Quit")
             SMEdit1 = (label=_"Edit") \
-                MenuItem10(command=EnqueueSelected,label=_"Add to queue") \
+                MenuItem10(command=EnqueueSelected,label=_"Queue") \
                 # MenuItem11(command=,label=_"Add to playlist") \ \
                 SeparatorMenuItem10 \
                 # MenuItem10(command=OpenPref,label=_"Remove") \
                 MenuItem11(command=DeleteSelected,label=_"Delete") \
                 SeparatorMenuItem11 \
-                MenuItem14(command=OpenPref,label=_"Options ...")
+                MenuItem14(command=OpenPref,label=_"Preferences")
 
             # SMView menu for common mode
             SMView20 = (label=_"View") \
-                MenuItem25(command=GoToCurrentSong,label=_"Go to playing song") \
+                MenuItem25(command=GoToCurrentSong,label=_"Go to Playing Track") \
                 SeparatorMenuItem21 \
                 LayoutItem \
-                MenuItem24(togglewidget=HBSearchAndToolbar,label=_"Toolbar")
+                MenuItem24(togglewidget=HBSearchAndToolbar,label=_"Playlist Utilities Bar")
 
 
             SMControl3 = (label=_"Tools") \
-                MenuItem32(command="RunPerlCode(::IdleScan)",label=_"Reread library") \
-                MenuItem33(command="OpenSongProp",label=_"Properties") \
+                MenuItem32(command="RunPerlCode(::IdleScan)",label=_"Rescan Collection",icon="gtk-refresh") \
+                MenuItem33(command="OpenSongProp",label=_"Track Properties",icon="gtk-properties") \
                 MenuItem34(click1=OpenCustom(Equalizer),label=_"Equalizer")
 
             SMHelp4 = (label=_"Help") \
-                MenuItem35(command="RunPerlCode(::AboutDialog)",label=_"About",stock="gtk-about",icon="gtk-about")
+                MenuItem35(command="RunPerlCode(::AboutDialog)",label=_"About",icon="gtk-about")
 
     HPSidebarCenter = VBSidebar VBCenter
 
