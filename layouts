@@ -1,7 +1,7 @@
 [Audacious]
 Author = shimmerproject.org
 Type = G+
-Title = %n %t (%m)
+Title = %n %t (%m) - gmusicbrowser
 Default = Window(size=480x200)
 
 KeyBindings = c-Q Quit \
@@ -76,7 +76,7 @@ VBMain = HBMenubar HBToolbar _HBPlaylist HBSonginfo 3HBStatusbar
 
     HBPlaylist = _SongList(mode=playlist,cols="track title playandqueue length",sort="artist album disc track")
 
-    HBStatusbar = -Total(mode=filter)
+    HBStatusbar = _Progress(maxheight=10) -Total(mode=filter)
 
     HBPlaytime = \
         PlayingTime(markup="%s",initsize="XX:XX",xalign=1) Text(markup="/") Length(markup="$length",initsize="XX:XX",xalign=0)
