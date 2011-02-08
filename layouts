@@ -1,7 +1,7 @@
 [Audacious]
 Author = shimmerproject.org
 Type = G+
-Title = Nr. %t (Länge)
+Title = %n %t (%m)
 Default = Window(size=480x200)
 
 VolumeScroll = HBVolume
@@ -22,7 +22,7 @@ VBMain = HBMenubar HBToolbar _HBPlaylist HBSonginfo 3HBStatusbar
         HBCover = (maxheight=80,minheight=80,minwidth=80,maxwidth=80) \
             Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100)
 
-    HBPlaylist = _SongList(mode=playlist,cols="track title length")
+    HBPlaylist = _SongList(mode=playlist,cols="track title length",sort="artist album disc track")
 
     HBStatusbar = -Text(text="TODO: x:xx/x:xx")
 
