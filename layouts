@@ -22,28 +22,28 @@ VBMain = HBMenubar HBToolbar _HBPlaylist HBSonginfo 3HBStatusbar
             MBMenubar = SMMenu1 SMMenu2 SMMenu3 SMMenu5 SMMenu6 SMMenu7
                 SMMenu1 = (label=_"File") \
 #                    MenuItem11(command=,label=_"Open files") \
-#                    MenuItem13(command=,label=_"Add files") \
+                     MenuItem13(command="RunPerlCode(::ChooseAddPath(0,1))",label=_"Add Files ...") \
 #                    SeparatorMenuItem11 \
                     MenuItem15(command=OpenPref,label=_"Preferences",icon="gtk-preferences") \
                     MenuItem16(command=Quit,label=_"Quit",icon="gtk-quit")
 
                 SMMenu2 = (label=_"Playback") \
                     SeparatorMenuItem21 \
-                    MenuItem26(command=PlayPause,label=_"Play") \
-                    MenuItem27(command=Stop,label=_"Stop") \
-                    MenuItem28(command=PrevSong,label=_"Previous") \
-                    MenuItem29(command=NextSong,label=_"Next") \
+                    MenuItem26(command=PlayPause,label=_"Play",icon="gtk-media-play") \
+                    MenuItem27(command=Stop,label=_"Stop",icon="gtk-media-stop") \
+                    MenuItem28(command=PrevSong,label=_"Previous",icon="gtk-media-previous") \
+                    MenuItem29(command=NextSong,label=_"Next",icon="gtk-media-next") \
                     SeparatorMenuItem215 \
                     MenuItem215(command="OpenSongProp",label=_"Show song details",icon="gtk-properties")
 
                 SMMenu3 = (label=_"Playlist") \
                     LSortItem \
-                    MenuItem32(command=ToggleRandom,label=_"Random Playback") \
+                    MenuItem32(command=ToggleRandom,label=_"Random Playback",icon="gmb-random") \
                     SeparatorMenuItem31 \
-                    MenuItem33(command="RunPerlCode(::IdleCheck)",label=_"Refresh") \
-                    MenuItem34(command="RunPerlCode(::IdleScan)",label=_"Rescan") \
+                    MenuItem33(command="RunPerlCode(::IdleCheck)",label=_"Refresh",icon="gtk-refresh") \
+                    MenuItem34(command="RunPerlCode(::IdleScan)",label=_"Rescan",icon="gtk-refresh") \
                     SeparatorMenuItem32 \
-                    MenuItem39(command="OpenCustom(Audacious_PLM)",label=_"Playlists")
+                    MenuItem39(command="OpenCustom(Audacious_PLM)",label=_"Playlists",icon="gmb-playlist")
 
                 SMMenu5 = (label=_"Output") \
                     MenuItem51(command=OpenCustom(Equalizer),label=_"Equalizer")
@@ -74,7 +74,7 @@ VBMain = HBMenubar HBToolbar _HBPlaylist HBSonginfo 3HBStatusbar
         HBCover = (maxheight=80,minheight=80,minwidth=80,maxwidth=80) \
             Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100)
 
-    HBPlaylist = _SongList(mode=playlist,cols="track title playandqueue length",sort="artist album disc track")
+    HBPlaylist = _SongList(mode=playlist,colwidth="track 20 title 380 playandqueue 20 length 50",cols="track title playandqueue length",sort="artist album disc track")
 
     HBStatusbar = _Progress(maxheight=10) -Total(mode=filter)
 
@@ -135,7 +135,6 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
                 SeparatorMenuItem21 \
                 LayoutItem \
                 MenuItem24(togglewidget=HBSearchAndToolbar,label=_"Playlist Utilities Bar")
-
 
             SMControl3 = (label=_"Tools") \
                 MenuItem32(command="RunPerlCode(::IdleScan)",label=_"Rescan Collection",icon="gtk-refresh") \
@@ -264,9 +263,9 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
                         -VolumeIcon(click1=TogMute,size=button,button=1)
 
                 VBSongInfo =  \
-                    _Title(minsize=0,markup="<big><big><b>%t</b></big></big>",click1="",yalign=0.5) \
-                    _Artist(yalign=1,minsize=0,markup="by %a",click1="") \
-                    _Album(minsize=1,expand_max=200,yalign=1,minsize=1,markup="from %l",click1="")\
+                    _Title(yalign=0.5,minsize=0,markup="<big><big><b>%t</b></big></big>",click1="") \
+                    _Artist(yalign=1,minsize=0,markup="by %a") \
+                    _Album(yalign=1,minsize=0,markup="from %l")\
                     100Filler2
 
 
@@ -284,7 +283,7 @@ VBMain = HBMenubar _HPSidebarCenter HBStatusbar
                 _VBTimeBar \
                 3Filler4
 
-                VBTimeBar = 2Filler0 TimeBar 1Filler1
+                VBTimeBar = 2Filler0 TimeBar(text="$current / %m") 1Filler1
 
 [Rhythmbox]
 Author = shimmerproject.org
