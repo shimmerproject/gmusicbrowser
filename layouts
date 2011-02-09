@@ -16,7 +16,8 @@ KeyBindings = c-Q Quit \
 
 VolumeScroll = HBVolume
 
-VBMain = HBMenubar HBToolbar _HBPlaylist HBSonginfo 3HBStatusbar
+VBMain = HBMenubar HBToolbar _HBPlaylist @AudaciousSongInfo 3HBStatusbar
+
 
     HBMenubar = _MBMenubar
             MBMenubar = SMMenu1 SMMenu2 SMMenu3 SMMenu5 SMMenu6 SMMenu7
@@ -59,20 +60,7 @@ VBMain = HBMenubar HBToolbar _HBPlaylist HBSonginfo 3HBStatusbar
                 SMMenu7 = (label=_"Help") \
                     MenuItem71(command="RunPerlCode(::AboutDialog)",label=_"About",icon="gtk-about")
 
-    HBSonginfo = 10HBCover \
-        VBSongInfo \
-        10Filler10 \
-        2_VBVisuals
 
-            VBVisuals = 2Filler2 _Visuals(minwidth=200,maxwidth=200) 2Filler3
-
-            VBSongInfo = 3Filler4 \
-                Title(minsize=0,markup="<big><big><big><big>%t</big></big></big></big>",click1="") \
-                Artist(minsize=0,markup="%a",click1="") \
-                Album(minsize=1,markup="%l",click1="")
-
-        HBCover = (maxheight=80,minheight=80,minwidth=80,maxwidth=80) \
-            Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100)
 
     HBPlaylist = _SongList(mode=playlist,colwidth="track 20 title 380 playandqueue 20 length 50",cols="track title playandqueue length",sort="artist album disc track")
 
@@ -94,6 +82,27 @@ VBMain = HBMenubar HBToolbar _HBPlaylist HBSonginfo 3HBStatusbar
                 Stop(size=button,relief=none) \
                 Prev(size=button,relief=none) \
                 Next(size=button,relief=none)
+
+[AudaciousSongInfo]
+
+SkinPath = audacious_skin
+
+Skin = background_black.png::hs
+
+HBSonginfo = 10HBCover \
+        VBSongInfo \
+        10Filler10 \
+        2_VBVisuals
+
+            VBVisuals = 2Filler2 _Visuals(minwidth=200,maxwidth=200) 2Filler3
+
+            VBSongInfo = 3Filler4 \
+                Title(minsize=0,markup="<big><big><big><big>%t</big></big></big></big>",click1="") \
+                Artist(minsize=0,markup="%a",click1="") \
+                Album(minsize=1,markup="%l",click1="")
+
+        HBCover = (maxheight=80,minheight=80,minwidth=80,maxwidth=80) \
+            Cover(default=elementary/no-cover.svg,showcover=0,minsize=100,maxsize=100)
 
 [Audacious_PLM]
 Default = Window(size=400x250)
