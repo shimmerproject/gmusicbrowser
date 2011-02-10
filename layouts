@@ -455,6 +455,239 @@ width=200
 sort= title:i
 text : text(markup=pesc($title).'\n<small>by <i>'.pesc($artist).'</i>\non <i>'.pesc($album).'</i></small>',pad=2)
 
+[Arkanoid refactored]
+
+Author=aboettger
+Type=G+
+
+#
+# import [ArkanoidHelp]
+#
+
+
+
+############## DEFAULT HIDDEN ################
+#
+# Filler18 - cover top space
+# Filler19 - cover bottom space
+# HBVisuals - no visuals on 1st start, only works with gstreamer
+#
+##############################################
+Default = Window(size=90%x80%,hidden=HBVisuals|Filler18|Filler19) \
+    HPLeftMiddleAndRight(size=650) \
+    HPSavedAndFilterAndList(size=100)\
+    VPFilter(size=40) \
+    HPFilterCenter(size=100) \
+    HPCoverAndVisuals(size=100-100) \
+    HPTitleAndStats(size=200-200)
+
+KeyBindings = \
+    cs-L ShowHideWidget(VBLeft) \
+    cs-M ShowHideWidget(VBMiddle) \
+    cs-R ShowHideWidget(VBRight) \
+    cs-T ShowHideWidget(VBMainMenuBar) \
+    cs-F ShowHideWidget(VPFilter|MenuItem22|SeparatorMenuItem21|MenuItem25) \
+    cs-V ShowHideWidget(VPFilterTop|MenuItem23|MenuItem24) \
+    cs-H ShowHideWidget(HPFilterCenter|MenuItem26|MenuItem27) \
+    cs-S ShowHideWidget(VBSavedFilterPane)
+
+VolumeScroll = HBVolume
+
+# Filler for horizontal padding
+HBMainContainer = 3Filler1 _VBMainContainer 3Filler2
+
+    # Filler for vertical padding
+    VBMainContainer = 5Filler3 HPTitleAndStats _HBMain 0Filler4
+
+        HPTitleAndStats = HBTitle HBTotal
+
+            HBTotal = -Total(size=small)
+
+            HBTitle = \
+                LockSong(stock="on:gmb-lock gmb-locklight off:gmb-breadcrumb-song gmb-lock") \
+                Title(expand_max=300,minsize=1,markup="<big><b>%t</b></big> ",click1="",yalign=0.5) \
+                LockAlbum(stock="on:gmb-lock gmb-locklight off:gmb-breadcrumb-album gmb-lock") \
+                Album(minsize=1,expand_max=200,yalign=0.5,minsize=0,markup="<big> </big>%l ",showcover=0) \
+                LockArtist(stock="on:gmb-lock gmb-locklight off:gmb-breadcrumb-artist gmb-lock") Artist(expand_max=200,yalign=0.5,minsize=0,markup="<big> </big>%a") \
+                5-Stars(yalign=0.5) \
+                5-VBLabelsIcons
+
+                VBLabelsIcons = 2Filler40 _LabelsIcons
+
+        HBMain = _HPLeftMiddleAndRight 3Filler50 VBMainMenuBar
+
+            VBMainMenuBar = \
+                HBVolume \
+                HSeparator2 \
+                MBViews \
+                Fullscreen(size=button,minwidth=34,maxwidth=34) \
+                Playlist(size=button,minwidth=34,maxwidth=34) \
+                -Button4(click1="OpenCustom(ArkanoidHelp)",relief=none,size=button,stock=gtk-help,minwidth=34,maxwidth=34,tip=_"Help") \
+                -Pref(stock=gtk-preferences,size=button,minwidth=34,maxwidth=34) \
+                -Button2(click1="RunPerlCode(::IdleCheck)",stock=gtk-refresh,size=button,minwidth=34,maxwidth=34,tip=_"check now") \
+                -Button3(click1="RunPerlCode(::IdleScan)",stock=gtk-zoom-in,size=button,minwidth=34,maxwidth=34,tip=_"scan now") \
+                -HSeparator1 \
+                -Button1(click1="RunPerlCode(::ChooseAddPath(0,1))",stock=gtk-add,size=button,minwidth=34,maxwidth=34,tip=_"Add folder ...")
+
+                    MBViews = SMViews
+
+                        SMViews = (label=_"->",minwidth=34,maxwidth=34) \
+                            MenuItem01(togglewidget=VBLeft|SMLeftPane10,label=_"Left pane") \
+                            MenuItem02(togglewidget=VBMiddle|SMMiddlePane20,label=_"Middle pane") \
+                            MenuItem03(togglewidget=VBRight|,label=_"RightPane") \
+                            SeparatorMenuItem01 \
+                            SMLeftPane10 \
+                            SMMiddlePane20
+
+                            SMLeftPane10 = (label=_"Left area") \
+                                MenuItem12(togglewidget=VBCover,label=_"Cover") \
+                                MenuItem13(togglewidget=HBVisuals,label=_"Visuals")
+
+                            SMMiddlePane20 = (label=_"Middle area") \
+                                MenuItem21(togglewidget=VPFilter|MenuItem22|SeparatorMenuItem21|MenuItem25,label=_"Filter pane") \
+                                MenuItem26(togglewidget=VBSavedFilterPane,label=_"Saved filter/lists") \
+                                SeparatorMenuItem21 \
+                                MenuItem22(togglewidget=VPFilterTop|MenuItem23|MenuItem24,label=_"Vertical filter") \
+                                MenuItem25(togglewidget=HPFilterCenter|MenuItem26|MenuItem27,label=_"Horizontal filter")
+
+                HBVolume = VolumeIcon(button=1)
+
+            HPLeftMiddleAndRight = HPLeftAndMiddle VBRight
+
+                HPLeftAndMiddle = VBLeft VBMiddle
+
+                    ############################################################
+                    # LEFT Area
+                    ############################################################
+
+                    VBLeft = VBTimeBar _HPCoverAndVisuals VBReplayButtons
+
+                        VBTimeBar = (minheight=34,maxheight=34) _Filler5 HBTimeBar _Filler6
+
+                            HBTimeBar = _TimeBar(text="")
+
+                        HPCoverAndVisuals = _VBCover _HBVisuals
+
+                            HBVisuals = _Visuals
+
+                            VBCover = HBToggleTopSpace \
+                                _Filler18 \
+                                _HBCover \
+                                _Filler19 \
+                                HBToggleBottomSpace
+
+                                HBToggleTopSpace = _Filler20 ToggleButton1(relief=none,size=button,icon=gtk-goto-bottom,widget=Filler18,tip=_"top spacer") _Filler21
+
+                                HBToggleBottomSpace = _Filler22 ToggleButton2(relief=none,size=button,icon=gtk-goto-top,widget=Filler19,tip=_"bottom spacer") _Filler23
+
+                                HBCover = (minheight=100) \
+                                    _Filler12 \
+                                    _Cover(maxsize=1000,click1="",reflection=0,overlay=6x6:778x778:arkanoid_skin/overlay.png,default=arkanoid_skin/no-cover.png,showcover=0) \
+                                    _Filler13
+
+                        VBReplayButtons = 5Filler16 HBReplayButtons
+
+                            HBReplayButtons = _Filler14 \
+                                Prev(size=large-toolbar,tip=_"Previous Song") \
+                                Play(size=dialog,tip=_"Play/Pause") \
+                                Next(size=large-toolbar,tip=_"Next Song") \
+                                _Filler15
+
+                    ############################################################
+                    # MIDDLE Area
+                    ############################################################
+
+                    VBMiddle = VBSearchBar _HPSavedAndFilterAndList
+
+                        VBSearchBar = (minheight=34,maxheight=34) _Filler7 HBSearchBar _Filler8
+
+                            HBSearchBar = 2_SimpleSearch(noselector=1,suggest=1)
+
+                        HPSavedAndFilterAndList = VBSavedFilterPane VPFilterAndList
+
+                            VBSavedFilterPane = _FilterPane4(nb=0,hidebb=1,tabpos=left90,page=savedtree,pages=savedtree)
+
+                            VPFilterAndList = VPFilter VBList
+
+                                VPFilter = _VPFilterTop _HPFilterCenter
+
+                                    VPFilterTop = _HBGenre _HBYear
+
+                                        HBGenre = _FilterPane5(nb=2,hidebb=1,pages=genre,page=genre,page_genre/mode=cloud,page_genre/cloud_min=8,page_genre/sort=alpha)
+
+                                        HBYear = _FilterPane2(nb=4,hidebb=1,pages=year,page=year,page_year/mode=cloud,page_year/cloud_min=8,page_year/sort=year)
+
+                                    HPFilterCenter = HBArtist HBAlbum
+
+                                        HBArtist = _FilterPane0(nb=3, hidebb=1,pages=artist,page=artist,page_artist/lmarkup=1)
+
+                                        HBAlbum = _FilterPane1(nb=5,hidebb=1,pages=album,page=album,page_album/mode=mosaic,page_album/lpicsize=64,page_album/lmarkup=1,page_album/mmarkup=below)
+
+                                VBList = _VBSongTree Progress
+
+                                    VBSongTree = HBSongTreeAct _SongTree(cols="playandqueue track title ratingpic artist album",colwidth="album 150 artist 200 title 200",follow=1,grouping="album|artistalbumdisk_breadcrumbs(picsize=100)",sort="path album disc track file")
+
+
+                                        HBSongTreeAct = FilterLock(button=1,relief=none) \
+                                            Sort(button=1) \
+                                            QueueFilter \
+                                            Filter(button=1) \
+                                            PlayFilter \
+                                            Button(size=menu,click1=GoToCurrentSong,stock=gtk-jump-to,tip=_"Go to playing song") \
+                                            _Filler9 \
+                                            _Filler10 \
+                                            -ResetFilter \
+                                            -MBSongTree
+
+                                                MBSongTree = HistItem
+
+                ############################################################
+                # RIGHT Area
+                ############################################################
+
+                VBRight = _NBSidebar1
+
+                    NBSidebar1 = (tabpos=left90,typesubmenu='PC') \
+                        VBQueueList \
+                        VBPlayList
+
+                        VBQueueList = (tabtitle=_"Queue") \
+                            EditListButtons(group=2,small=1,relief=none) \
+                            _QueueList(cols="queuenumber titleaa",colwidth="queuenumber 20",sort="path album:i disc track file",songtree=1,group=2)
+
+                        VBPlayList = (tabtitle=_"Playlist") \
+                            _SongList(cols="playandqueue titleaa",colwidth="queuenumber 20",sort="path album:i disc track file",mode=playlist,group=1,follow=1)
+
+[ArkanoidHelp]
+# Help for Arkanoid
+Author=aboettger
+
+Default = Window(size=400x250)
+
+KeyBindings = Escape CloseWindow
+
+Title = _"Arkanoid - Help"
+
+SBMain = VBMain
+
+    VBMain = 5_HBMain
+
+        HBMain = 5_VBHelp
+
+            VBHelp = Text1(markup="<big><big><b>Keyboard shortcuts</b></big></big>") 5HBShortcuts
+
+                HBShortcuts = 5VBShortCuts
+
+                    VBShortCuts = \
+                        Text11(markup="<tt><b>Ctrl-Shift L</b></tt>    Show/Hide left pane") \
+                        Text12(markup="<tt><b>Ctrl-Shift M</b></tt>    Show/Hide middle pane") \
+                        Text13(markup="<tt><b>Ctrl-Shift R</b></tt>    Show/Hide right pane") \
+                        Text14(markup="<tt><b>Ctrl-Shift T</b></tt>    Show/Hide menu bar") \
+                        Text15(markup="<tt><b>Ctrl-Shift F</b></tt>    Show/Hide filter") \
+                        Text16(markup="<tt><b>Ctrl-Shift H</b></tt>    Show/Hide horizontal filter") \
+                        Text17(markup="<tt><b>Ctrl-Shift V</b></tt>    Show/Hide vertical filter") \
+                        Text18(markup="<tt><b>Ctrl-Shift S</b></tt>    Show/Hide saved filter/lists")
+
 [iTunes]
 
 ### based on itunes-like-plus
