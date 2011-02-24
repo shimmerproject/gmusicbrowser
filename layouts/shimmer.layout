@@ -3,7 +3,7 @@ Type=G
 Title		= "gmusicbrowser"
 DefaultFocus	= SimpleSearch
 Default		= Window(size=1000x750)
-Window		= hidden=SongList|VPMosaic
+Window		= hidden=HBSongPlaylist|VPMosaic
 Author		= simon@shimmerproject.org
 ### main window containers: top bar, main and statusbar ###
 VBMain		= VBTop _HBMain
@@ -101,3 +101,4 @@ VBSidebar	= 4Filler1 7HBSearch _7HBQueue 4Filler2
 HBQueue		= 14_QueueList(group=1,songtree=1,cols="queuenumber titleaa",colwidth="queuenumber 20 titleaa 248")
 HBSearch	= 4Filler3 6Label0(markup='<span size="xx-large" weight="ultrabold">«</span>') _SimpleSearch(suggest=1) 7Filler4
 KeyBindings	= Escape CloseWindow
+
