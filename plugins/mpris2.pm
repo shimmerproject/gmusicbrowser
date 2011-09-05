@@ -27,6 +27,8 @@ my @Objects;
 
 sub Start
 {	my $service= $bus->export_service('org.mpris.MediaPlayer2.gmusicbrowser');
+	$::Options{CloseToTray} = "1";
+	$::Options{MPRIS2} = "1";
 	push @Objects, GMB::DBus::MPRIS2->new($service);
 }
 sub Stop
