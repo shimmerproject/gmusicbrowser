@@ -1774,9 +1774,12 @@ sub new
 		my $pid= $self->{page}= $p->{pid};
 		my $mask=	$Pages{$pid} ? 				$Pages{$pid}[2] :
 				Songs::FilterListProp($pid,'multi') ?	'oni' : 'on';
-		$optB->set_visible  ( $mask=~m/o/ );
-		$spin->set_visible  ( $mask=~m/n/ );
-		$InterB->set_visible( $mask=~m/i/ );
+		if	($mask=~m/o/)	{$optB->show}
+		else			{$optB->hide}
+		if	($mask=~m/n/)	{$spin->show}
+		else			{$spin->hide}
+		if	($mask=~m/i/)	{$InterB->show}
+		else			{$InterB->hide}
 	 });
 
 	$self->add($notebook);
